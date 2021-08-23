@@ -33,18 +33,17 @@ this.getAuthorId();
   saveClick(): void { 
 
     this.Book.AuthorId = this.AuthorId;
-    console.log(this.Book);
-    this.services.addBook(this.Book).subscribe(response =>{
-      const row = response as Book;
-      var id = row.AuthorId;
-this.router.navigate(['/book',id]);
-              
-//       if(row == null){
-//         alert('Error en el servidor');
-//       }
-//       else{
-// this.router.navigate(['/book',id]);
-//       }
+    this.services.addBook(this.Book).subscribe(data =>{
+      const row = data as Book;
+      if(row == null){
+        alert('Error en el servidor');
+      }
+      else {
+        var id = row.AuthorId;
+        this.router.navigate(['/book',id]);
+      }
+    },response=>{
+      alert(response.error);
     });
   }
 }

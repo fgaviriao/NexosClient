@@ -29,11 +29,11 @@ export class AuthorFormComponent implements OnInit {
     this.services.addAuthor(this.Author).subscribe(response =>{
       const row = response;
       console.log(row);
-      if(row != null){
+      if(row == null){
         alert('Error en el servidor');
       }
       else{
-        this.router.navigate(['/author-edit',row.Id]);
+        this.router.navigate(['/book',row.Id]);
       }
     });
   }
