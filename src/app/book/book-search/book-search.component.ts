@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import {NgForm} from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from 'src/app/shared.service';
+import { Author } from 'src/app/models/author';
 
 @Component({
   selector: 'app-book-search',
@@ -20,6 +21,7 @@ export class BookSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBookList();
+    this.getAuthorName();
   }
 
   
@@ -27,6 +29,15 @@ export class BookSearchComponent implements OnInit {
     this.services.deleteBook(id).subscribe(data=>{
       this.getBookList();
     });
+  }
+
+  getAuthorName(): void {
+    this.services.getAuthorById(this.AuthorId).subscribe(data=>{
+      var row = data as Author;
+      if(data!=null){
+        this.ModalTitle = "Administración de libros - " + row.Name; 
+      }
+    })
   }
 
   getBookList(): void {
